@@ -2,28 +2,164 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
+
 .main_app_container {
   width: 100vw;
   height: 100vh;
-  background-color: green;
   position: relative;
 }
+
 .modal_wrapper {
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.372);
+  background-color: rgba(0, 0, 0, 0.33);
   display: flex;
   justify-content: center;
   align-items: center;
 
   .modal_container {
     background-color: white;
-    width: 70%;
-    height: 70%;
+    width: 80vw;
+    // height: auto;
     border-radius: 10px;
+    position: relative;
+    box-sizing: border-box;
+
+    .close_button {
+      position: absolute;
+      right: 0;
+      top: 0;
+      background-color: red;
+      color: white;
+      padding: 5px;
+      cursor: pointer;
+    }
+
+    .modal_header {
+      padding: 1vw;
+      height: 10%;
+      display: flex;
+      justify-content: space-between;
+
+      .modal_header_title {
+        font-size: 2.5vh;
+        font-weight: 600;
+      }
+    }
+
+    .modal_body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 1vh 1vw;
+      height: 80%;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      gap: 1vh 1vw;
+      color: black;
+    }
+
+    .modal_footer {
+      height: 10%;
+      padding: 10px;
+      color: black;
+      margin: 2px;
+      margin-left: auto;
+
+      .total {
+        margin-left: auto;
+        width: fit-content;
+        margin-bottom: 1vh;
+      }
+
+      .modal_footer_btns_container {
+        margin-left: auto;
+        width: fit-content;
+        display: flex;
+        gap: 1vw;
+      }
+    }
   }
 }
+
+.card_container {
+  width: 100%;
+  border-radius: 10px;
+  padding: 1vh 1vw;
+  border: 2px solid #e2e4e9;
+  position: relative;
+  display: grid;
+  grid-template-columns: 6fr 1fr;
+
+  .left_side {
+    .render_count {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .device_name {
+      font-size: 2.5vh;
+      font-weight: 600;
+    }
+
+    .badges_contianer {
+      display: flex;
+      align-items: center;
+      gap: 1vw;
+    }
+
+    .card_footer {
+      .card_footer_title {
+        font-size: 1.7vh;
+      }
+
+      .card_footer_items {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5vw;
+      }
+    }
+  }
+
+  .right_side {}
+}
+
+.render_count {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+@media (900px >width) {
+  .main_app_container {
+    // background-color: green;
+  }
+
+  /* … */
+}
+
+@media (900px <width) {
+  .main_app_container {
+    // background-color: red;
+  }
+
+  /* … */
+}
+
+@media (1250px <width) {
+
+  /* … */
+  .main_app_container {
+    // background-color: blue;
+  }
+}
+
+// .disabled{
+//   background-color: red !important;
+// }

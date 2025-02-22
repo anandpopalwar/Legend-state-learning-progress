@@ -1,196 +1,118 @@
 {
   "devices": [
     {
+      "id": "NVR-001-1698",
       "name": "NVR-001",
       "type": "Network Video Recorder",
       "location": "Mumbai",
       "camera_count": 18,
       "licenses": "N/A",
-      "license_details": {
-        "Free": "N/A",
-        "1M": "N/A",
-        "3M": "N/A",
-        "6M": "N/A",
-        "12M": "N/A",
-        "Lifetime": "N/A",
-        "Custom": "N/A"
-      }
+      "isChecked": false,
+      "price": 850,
+      "license_details": [
+        { "id": "LIC-001", "type": "Free", "value": "N/A" },
+        { "id": "LIC-002", "type": "1M", "value": "N/A" },
+        { "id": "LIC-003", "type": "3M", "value": "N/A" },
+        { "id": "LIC-004", "type": "6M", "value": "N/A" },
+        { "id": "LIC-005", "type": "12M", "value": "N/A" },
+        { "id": "LIC-006", "type": "Lifetime", "value": "N/A" },
+        { "id": "LIC-007", "type": "Custom", "value": "N/A" }
+      ]
     },
     {
+      "id": "IoT-Alpha-2743",
       "name": "IoT-Sensor-Alpha",
       "type": "IoT Environmental Sensor",
       "location": "Mumbai",
       "camera_count": 18,
       "licenses": "N/A",
-      "license_details": {
-        "Free": "N/A",
-        "1M": "N/A",
-        "3M": "N/A",
-        "6M": "N/A",
-        "12M": "N/A",
-        "Lifetime": "N/A",
-        "Custom": "N/A"
-      }
+      "isChecked": false,
+      "price": 420,
+      "license_details": [
+        { "id": "LIC-008", "type": "Free", "value": "N/A" },
+        { "id": "LIC-009", "type": "1M", "value": "N/A" },
+        { "id": "LIC-010", "type": "3M", "value": "N/A" },
+        { "id": "LIC-011", "type": "6M", "value": "N/A" },
+        { "id": "LIC-012", "type": "12M", "value": "N/A" },
+        { "id": "LIC-013", "type": "Lifetime", "value": "N/A" },
+        { "id": "LIC-014", "type": "Custom", "value": "N/A" }
+      ]
     },
     {
+      "id": "Cam-FrontGate-3091",
       "name": "Security-Cam-FrontGate",
       "type": "CCTV Camera",
       "location": "Mumbai",
       "camera_count": 18,
       "licenses": "N/A",
-      "license_details": {
-        "Free": "N/A",
-        "1M": "N/A",
-        "3M": "N/A",
-        "6M": "N/A",
-        "12M": "N/A",
-        "Lifetime": "N/A",
-        "Custom": "N/A"
-      }
+      "isChecked": false,
+      "price": 765,
+      "license_details": [
+        { "id": "LIC-015", "type": "Free", "value": "N/A" },
+        { "id": "LIC-016", "type": "1M", "value": "N/A" },
+        { "id": "LIC-017", "type": "3M", "value": "N/A" },
+        { "id": "LIC-018", "type": "6M", "value": "N/A" },
+        { "id": "LIC-019", "type": "12M", "value": "N/A" },
+        { "id": "LIC-020", "type": "Lifetime", "value": "N/A" },
+        { "id": "LIC-021", "type": "Custom", "value": "N/A" }
+      ]
     },
     {
+      "id": "NVR-002-5827",
       "name": "NVR-002",
       "type": "Network Video Recorder",
       "location": "Mumbai",
       "camera_count": 18,
       "licenses": "N/A",
-      "license_details": {
-        "Free": "N/A",
-        "1M": "N/A",
-        "3M": "N/A",
-        "6M": "N/A",
-        "12M": "N/A",
-        "Lifetime": "N/A",
-        "Custom": "N/A"
-      }
+      "isChecked": false,
+      "price": 990,
+      "license_details": [
+        { "id": "LIC-022", "type": "Free", "value": "N/A" },
+        { "id": "LIC-023", "type": "1M", "value": "N/A" },
+        { "id": "LIC-024", "type": "3M", "value": "N/A" },
+        { "id": "LIC-025", "type": "6M", "value": "N/A" },
+        { "id": "LIC-026", "type": "12M", "value": "N/A" },
+        { "id": "LIC-027", "type": "Lifetime", "value": "N/A" },
+        { "id": "LIC-028", "type": "Custom", "value": "N/A" }
+      ]
     },
     {
+      "id": "IoT-Beta-6183",
       "name": "IoT-Sensor-Beta",
       "type": "IoT Temperature Sensor",
       "location": "Mumbai",
       "camera_count": 18,
       "licenses": "N/A",
-      "license_details": {
-        "Free": "N/A",
-        "1M": "N/A",
-        "3M": "N/A",
-        "6M": "N/A",
-        "12M": "N/A",
-        "Lifetime": "N/A",
-        "Custom": "N/A"
-      }
+      "isChecked": false,
+      "price": 360,
+      "license_details": [
+        { "id": "LIC-029", "type": "Free", "value": "N/A" },
+        { "id": "LIC-030", "type": "1M", "value": "N/A" },
+        { "id": "LIC-031", "type": "3M", "value": "N/A" },
+        { "id": "LIC-032", "type": "6M", "value": "N/A" },
+        { "id": "LIC-033", "type": "12M", "value": "N/A" },
+        { "id": "LIC-034", "type": "Lifetime", "value": "N/A" },
+        { "id": "LIC-035", "type": "Custom", "value": "N/A" }
+      ]
     },
     {
-      "name": "Security-Cam-Lobby",
-      "type": "CCTV Camera",
-      "location": "Mumbai",
-      "camera_count": 18,
-      "licenses": "N/A",
-      "license_details": {
-        "Free": "N/A",
-        "1M": "N/A",
-        "3M": "N/A",
-        "6M": "N/A",
-        "12M": "N/A",
-        "Lifetime": "N/A",
-        "Custom": "N/A"
-      }
-    },
-    {
-      "name": "NVR-003",
-      "type": "Network Video Recorder",
-      "location": "Mumbai",
-      "camera_count": 18,
-      "licenses": "N/A",
-      "license_details": {
-        "Free": "N/A",
-        "1M": "N/A",
-        "3M": "N/A",
-        "6M": "N/A",
-        "12M": "N/A",
-        "Lifetime": "N/A",
-        "Custom": "N/A"
-      }
-    },
-    {
-      "name": "IoT-Sensor-Gamma",
-      "type": "IoT Motion Sensor",
-      "location": "Mumbai",
-      "camera_count": 18,
-      "licenses": "N/A",
-      "license_details": {
-        "Free": "N/A",
-        "1M": "N/A",
-        "3M": "N/A",
-        "6M": "N/A",
-        "12M": "N/A",
-        "Lifetime": "N/A",
-        "Custom": "N/A"
-      }
-    },
-    {
-      "name": "Security-Cam-Parking",
-      "type": "CCTV Camera",
-      "location": "Mumbai",
-      "camera_count": 18,
-      "licenses": "N/A",
-      "license_details": {
-        "Free": "N/A",
-        "1M": "N/A",
-        "3M": "N/A",
-        "6M": "N/A",
-        "12M": "N/A",
-        "Lifetime": "N/A",
-        "Custom": "N/A"
-      }
-    },
-    {
-      "name": "NVR-004",
-      "type": "Network Video Recorder",
-      "location": "Mumbai",
-      "camera_count": 18,
-      "licenses": "N/A",
-      "license_details": {
-        "Free": "N/A",
-        "1M": "N/A",
-        "3M": "N/A",
-        "6M": "N/A",
-        "12M": "N/A",
-        "Lifetime": "N/A",
-        "Custom": "N/A"
-      }
-    },
-    {
-      "name": "IoT-Sensor-Delta",
-      "type": "IoT Air Quality Sensor",
-      "location": "Mumbai",
-      "camera_count": 18,
-      "licenses": "N/A",
-      "license_details": {
-        "Free": "N/A",
-        "1M": "N/A",
-        "3M": "N/A",
-        "6M": "N/A",
-        "12M": "N/A",
-        "Lifetime": "N/A",
-        "Custom": "N/A"
-      }
-    },
-    {
+      "id": "Cam-Backyard-7512",
       "name": "Security-Cam-Backyard",
       "type": "CCTV Camera",
       "location": "Mumbai",
       "camera_count": 18,
       "licenses": "N/A",
-      "license_details": {
-        "Free": "N/A",
-        "1M": "N/A",
-        "3M": "N/A",
-        "6M": "N/A",
-        "12M": "N/A",
-        "Lifetime": "N/A",
-        "Custom": "N/A"
-      }
+      "isChecked": false,
+      "price": 610,
+      "license_details": [
+        { "id": "LIC-036", "type": "Free", "value": "N/A" },
+        { "id": "LIC-037", "type": "1M", "value": "N/A" },
+        { "id": "LIC-038", "type": "3M", "value": "N/A" },
+        { "id": "LIC-039", "type": "6M", "value": "N/A" },
+        { "id": "LIC-040", "type": "12M", "value": "N/A" },
+        { "id": "LIC-041", "type": "Lifetime", "value": "N/A" },
+        { "id": "LIC-042", "type": "Custom", "value": "N/A" }
+      ]
     }
   ]
 }
