@@ -1,0 +1,196 @@
+{
+  "devices": [
+    {
+      "name": "NVR-001",
+      "type": "Network Video Recorder",
+      "location": "Mumbai",
+      "camera_count": 18,
+      "licenses": "N/A",
+      "license_details": {
+        "Free": "N/A",
+        "1M": "N/A",
+        "3M": "N/A",
+        "6M": "N/A",
+        "12M": "N/A",
+        "Lifetime": "N/A",
+        "Custom": "N/A"
+      }
+    },
+    {
+      "name": "IoT-Sensor-Alpha",
+      "type": "IoT Environmental Sensor",
+      "location": "Mumbai",
+      "camera_count": 18,
+      "licenses": "N/A",
+      "license_details": {
+        "Free": "N/A",
+        "1M": "N/A",
+        "3M": "N/A",
+        "6M": "N/A",
+        "12M": "N/A",
+        "Lifetime": "N/A",
+        "Custom": "N/A"
+      }
+    },
+    {
+      "name": "Security-Cam-FrontGate",
+      "type": "CCTV Camera",
+      "location": "Mumbai",
+      "camera_count": 18,
+      "licenses": "N/A",
+      "license_details": {
+        "Free": "N/A",
+        "1M": "N/A",
+        "3M": "N/A",
+        "6M": "N/A",
+        "12M": "N/A",
+        "Lifetime": "N/A",
+        "Custom": "N/A"
+      }
+    },
+    {
+      "name": "NVR-002",
+      "type": "Network Video Recorder",
+      "location": "Mumbai",
+      "camera_count": 18,
+      "licenses": "N/A",
+      "license_details": {
+        "Free": "N/A",
+        "1M": "N/A",
+        "3M": "N/A",
+        "6M": "N/A",
+        "12M": "N/A",
+        "Lifetime": "N/A",
+        "Custom": "N/A"
+      }
+    },
+    {
+      "name": "IoT-Sensor-Beta",
+      "type": "IoT Temperature Sensor",
+      "location": "Mumbai",
+      "camera_count": 18,
+      "licenses": "N/A",
+      "license_details": {
+        "Free": "N/A",
+        "1M": "N/A",
+        "3M": "N/A",
+        "6M": "N/A",
+        "12M": "N/A",
+        "Lifetime": "N/A",
+        "Custom": "N/A"
+      }
+    },
+    {
+      "name": "Security-Cam-Lobby",
+      "type": "CCTV Camera",
+      "location": "Mumbai",
+      "camera_count": 18,
+      "licenses": "N/A",
+      "license_details": {
+        "Free": "N/A",
+        "1M": "N/A",
+        "3M": "N/A",
+        "6M": "N/A",
+        "12M": "N/A",
+        "Lifetime": "N/A",
+        "Custom": "N/A"
+      }
+    },
+    {
+      "name": "NVR-003",
+      "type": "Network Video Recorder",
+      "location": "Mumbai",
+      "camera_count": 18,
+      "licenses": "N/A",
+      "license_details": {
+        "Free": "N/A",
+        "1M": "N/A",
+        "3M": "N/A",
+        "6M": "N/A",
+        "12M": "N/A",
+        "Lifetime": "N/A",
+        "Custom": "N/A"
+      }
+    },
+    {
+      "name": "IoT-Sensor-Gamma",
+      "type": "IoT Motion Sensor",
+      "location": "Mumbai",
+      "camera_count": 18,
+      "licenses": "N/A",
+      "license_details": {
+        "Free": "N/A",
+        "1M": "N/A",
+        "3M": "N/A",
+        "6M": "N/A",
+        "12M": "N/A",
+        "Lifetime": "N/A",
+        "Custom": "N/A"
+      }
+    },
+    {
+      "name": "Security-Cam-Parking",
+      "type": "CCTV Camera",
+      "location": "Mumbai",
+      "camera_count": 18,
+      "licenses": "N/A",
+      "license_details": {
+        "Free": "N/A",
+        "1M": "N/A",
+        "3M": "N/A",
+        "6M": "N/A",
+        "12M": "N/A",
+        "Lifetime": "N/A",
+        "Custom": "N/A"
+      }
+    },
+    {
+      "name": "NVR-004",
+      "type": "Network Video Recorder",
+      "location": "Mumbai",
+      "camera_count": 18,
+      "licenses": "N/A",
+      "license_details": {
+        "Free": "N/A",
+        "1M": "N/A",
+        "3M": "N/A",
+        "6M": "N/A",
+        "12M": "N/A",
+        "Lifetime": "N/A",
+        "Custom": "N/A"
+      }
+    },
+    {
+      "name": "IoT-Sensor-Delta",
+      "type": "IoT Air Quality Sensor",
+      "location": "Mumbai",
+      "camera_count": 18,
+      "licenses": "N/A",
+      "license_details": {
+        "Free": "N/A",
+        "1M": "N/A",
+        "3M": "N/A",
+        "6M": "N/A",
+        "12M": "N/A",
+        "Lifetime": "N/A",
+        "Custom": "N/A"
+      }
+    },
+    {
+      "name": "Security-Cam-Backyard",
+      "type": "CCTV Camera",
+      "location": "Mumbai",
+      "camera_count": 18,
+      "licenses": "N/A",
+      "license_details": {
+        "Free": "N/A",
+        "1M": "N/A",
+        "3M": "N/A",
+        "6M": "N/A",
+        "12M": "N/A",
+        "Lifetime": "N/A",
+        "Custom": "N/A"
+      }
+    }
+  ]
+}
