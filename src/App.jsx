@@ -7,6 +7,7 @@ import {
   useComputed,
   useObservable,
   useObserve,
+  useObserveEffect,
   useSelector,
 } from "@legendapp/state/react";
 import "./App.scss";
@@ -73,7 +74,7 @@ const App = () => {
         add Devices
       </button>
       {/* <Button2 className={btnclassName} btnName={btnName} /> */}
-      <Button2
+      {/* <Button2
         disabled={isbtndisabled}
         name={btnName}
         width="150px"
@@ -83,7 +84,7 @@ const App = () => {
         size="sm"
         id={"buy_now"}
         key={"buy_now"}
-      />
+      /> */}
 
       <Show if={isModalOpen}>
         {() => (
@@ -113,8 +114,9 @@ const Modal = ({ closeFunction, devices_data }) => {
     // console.log(items, prize2, "selecteditemslength useComputed");
     return { items, prize2: 0 };
   });
+
   const isbtndisabled = useComputed(() => {
-    return prize.get() >= 0 ? true : false;
+    return prize.get() === 0;
   });
   const btnname = useComputed(() => {
     return prize.get() ? "Buy Now $" + prize.get() : "Select Items";
@@ -125,8 +127,8 @@ const Modal = ({ closeFunction, devices_data }) => {
 
   // console.log(selecteditemslength.get(), "RRRRRRrr");
 
-  useObserve(btnType, (e) => {
-    console.log(e.value, "btnType");
+  useObserveEffect(prize, (e) => {
+    console.log(e.value, "isbtndisabled");
   });
   // const getTotalPrize = totalPrize.get();
   // const isBtnDisabled = useComputed(()=>{
@@ -189,7 +191,7 @@ const Modal = ({ closeFunction, devices_data }) => {
             />
             {/* {console.log(totalPrize.get(), "totalPrize.get()")} */}
             <SolidButton
-              disabled={isbtndisabled}
+              disabled={prize.get() === 0}
               name={btnname}
               width="150px"
               style={{ margin: "0px", padding: ".2vh 1vw" }}

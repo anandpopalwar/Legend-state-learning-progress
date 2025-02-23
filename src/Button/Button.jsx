@@ -5,6 +5,7 @@ import {
   Reactive,
   useComputed,
   useObserveEffect,
+  useSelector,
 } from "@legendapp/state/react";
 import "./Button.scss";
 import { useRef } from "react";
@@ -189,9 +190,12 @@ export const SolidButton = ({
     return retuningClases;
   });
 
-  // useObserveEffect(() => {
-  //   console.log(type2.get(), "type2 computed>>>>>>>>>>>>");
-  // });
+  useObserveEffect(() => {
+    console.log(
+      disabled,
+      "disableddisableddisableddisableddisableddisabled>>>>>>>>>>>>"
+    );
+  });
 
   return (
     <Button
@@ -239,11 +243,25 @@ export const Button = ({
 
   const renderCount = ++useRef(0).current;
 
+  const isDisabled = useComputed(() => {
+    let isDisabled;
+
+    if (typeof disabled === "object") {
+      isDisabled = disabled.get() ? true : false;
+    } else {
+      isDisabled = disabled ? true : false;
+    }
+
+    console.log(isDisabled ? "isDisabled" : "not isDisabled");
+
+    return isDisabled;
+  });
+
   const styles = {
     width: !width && "100px",
     height,
-    cursor: disabled ? "not-allowed" : readOnly ? "auto" : null,
-    opacity: disabled && 0.8,
+    cursor: isDisabled.get() ? "not-allowed" : readOnly ? "auto" : null,
+    opacity: isDisabled.get() && 0.8,
     borderRadius: !borderRadius && "2px",
     textDecoration: link && "underline",
     color,
@@ -292,20 +310,6 @@ export const Button = ({
     return "button " + classString;
   });
 
-  const isDisabled = useComputed(() => {
-    let isDisabled;
-
-    if (typeof disabled === "object") {
-      isDisabled = disabled.get() ? true : false;
-    } else {
-      isDisabled = disabled ? true : false;
-    }
-
-    console.log(isDisabled ? "isDisabled" : "not isDisabled");
-
-    return isDisabled;
-  });
-
   // useObserveEffect(() => {
   //   console.log(
   //     getName.get(),
@@ -318,7 +322,7 @@ export const Button = ({
     <Computed>
       {() => (
         <Reactive.button
-          $className={extraClassNameString.get()}
+          $className={() => extraClassNameString.get()}
           $onClick={!readOnly ? onClick : null}
           $disabled={isDisabled.get()}
           $style={{ ...styles }}
