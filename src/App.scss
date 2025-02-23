@@ -10,6 +10,8 @@
   width: 100vw;
   height: 100vh;
   position: relative;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .modal_wrapper {
@@ -22,7 +24,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   .modal_container {
     background-color: white;
     width: 80vw;
@@ -127,7 +130,11 @@
     }
   }
 
-  .right_side {}
+  .right_side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .render_count {
@@ -153,13 +160,12 @@
 }
 
 @media (1250px <width) {
-
   /* … */
   .main_app_container {
     // background-color: blue;
   }
 }
 
-// .disabled{
-//   background-color: red !important;
-// }
+.disabled {
+  background-color: red !important;
+}

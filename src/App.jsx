@@ -1,4 +1,5 @@
 import {
+  Computed,
   For,
   Memo,
   observer,
@@ -19,24 +20,19 @@ import {
   SolidButton,
 } from "./Button/Button";
 import { Reactive } from "@legendapp/state/react";
-import { observable } from "@legendapp/state";
-const { isModalOpen, devices_data } = observable({
-  isModalOpen: false,
-  devices_data: [...backend_data.devices],
-  // totalPrize: 0,
-  // isBtnDisabled: false,
-});
-
-const closeFunction = () => {
-  isModalOpen.set(false);
-};
+import { computed } from "@legendapp/state";
 
 const App = () => {
-  const renderCount = ++useRef(0).current;
-
-  const { totalPrize } = useObservable({
-    totalPrize: 0,
+  const { isModalOpen, devices_data, isBtnDisabled } = useObservable({
+    isModalOpen: false,
+    devices_data: [...backend_data.devices],
+    // totalPrize: 0,
+    isBtnDisabled: false,
   });
+  const closeFunction = () => {
+    isModalOpen.set(false);
+  };
+  const renderCount = ++useRef(0).current;
 
   useEffect(() => {
     console.log("useeffect");
@@ -52,17 +48,22 @@ const App = () => {
   // useObserve(totalPrize, (e) => {
   //   document.title = `${e.get()}`;
   // });
+  const isbtndisabled = useComputed(() => isBtnDisabled.get());
+  const btnName = useComputed(() =>
+    !isBtnDisabled.get() ? "Selected !" : "Select btn"
+  );
+  const btnType = useComputed(() =>
+    !isBtnDisabled.get() ? "solidblue" : "warningred anand"
+  );
 
   return (
     <div
       className="main_app_container"
       onClick={() => {
         // isBtnDisabled.toggle();
+        isModalOpen.toggle();
       }}
     >
-      {/* {console.log(totalPrize.get(), "totalPrize")} */}
-      <div>{totalPrize.get()}</div>
-      {/* {console.log(totalPrize.get(), "totalPrize")} */}
       <div className="">{renderCount}</div>
       <button
         onClick={() => {
@@ -71,106 +72,166 @@ const App = () => {
       >
         add Devices
       </button>
-      {/* <Button2 isBtnDisabled={isBtnDisabled} key={"id"} /> */}
+      {/* <Button2 className={btnclassName} btnName={btnName} /> */}
+      <Button2
+        disabled={isbtndisabled}
+        name={btnName}
+        width="150px"
+        style={{ margin: "0px", padding: ".2vh 1vw" }}
+        borderRadius={"2"}
+        extraClassName={btnType}
+        size="sm"
+        id={"buy_now"}
+        key={"buy_now"}
+      />
 
-      <Show if={isModalOpen}>{() => <Modal totalPrize={totalPrize} />}</Show>
+      <Show if={isModalOpen}>
+        {() => (
+          <Modal
+            {...{
+              devices_data,
+              closeFunction,
+            }}
+          />
+        )}
+      </Show>
     </div>
   );
 };
 
-const Modal = ({ totalPrize }) => {
+const Modal = ({ closeFunction, devices_data }) => {
   const renderCount = ++useRef(0).current;
+  const prize = useObservable(0);
 
-  // const totalValue = useComputed(() => totalPrize.get() + "");
+  const { items, prize2 } = useComputed(() => {
+    let items = devices_data.get().filter((item) => item.isChecked === true);
+
+    // let prize2 = items
+    //   .map((item) => item.price)
+    //   .reduce((curr, acc) => curr + acc, 0);
+
+    // console.log(items, prize2, "selecteditemslength useComputed");
+    return { items, prize2: 0 };
+  });
+  const isbtndisabled = useComputed(() => {
+    return prize.get() >= 0 ? true : false;
+  });
+  const btnname = useComputed(() => {
+    return prize.get() ? "Buy Now $" + prize.get() : "Select Items";
+  });
+  const btnType = useComputed(() => {
+    return prize.get() > 0 ? "solidblue" : "warningred";
+  });
+
+  // console.log(selecteditemslength.get(), "RRRRRRrr");
+
+  useObserve(btnType, (e) => {
+    console.log(e.value, "btnType");
+  });
+  // const getTotalPrize = totalPrize.get();
+  // const isBtnDisabled = useComputed(()=>{
+
+  // })
   return (
-    <Reactive.div className="modal_wrapper">
-      {console.log(totalPrize.get(), "totalValue")}
-      <Reactive.div className="render_count">{renderCount}</Reactive.div>
-      <Reactive.div
+    <Reactive.div
+      $className="modal_wrapper"
+      // $onClick={() => {
+      //   totalPrize.set((p) => p + 100);
+      //   console.log(totalPrize.get());
+      // }}
+    >
+      {/* {console.log(totalPrize.get(), "totalValue")} */}
+      <div className="render_count">{renderCount}</div>
+      <div
         className="modal_container"
         onClick={(e) => {
           e.stopPropagation();
         }}
       >
-        <Reactive.div className="modal_header">
-          <Reactive.div className="modal_header_title">
-            Add To Devices
-          </Reactive.div>
-          <Reactive.div
-            className="close_button"
+        <div className="modal_header">
+          <div className="modal_header_title">Add To Devices</div>
+          {/* <Memo>{() => prize2.get()}</Memo> */}
+          <X
             onClick={(e) => {
               e.stopPropagation();
               closeFunction();
             }}
-          >
-            X
-          </Reactive.div>
-        </Reactive.div>
-        <Reactive.div className="modal_body">
+          />
+          {/* <div className="close_button">X</div> */}
+        </div>
+        <div className="modal_body">
           {/* <Card Data={devices_data[0]} key={devices_data[0].name.get()} /> */}
           <For each={devices_data}>
-            {(item) => (
-              <Card Data={item} key={item.id.get()} totalPrize={totalPrize} />
-            )}
+            {(item) => <Card Data={item} key={item.id.get()} prize={prize} />}
           </For>
-        </Reactive.div>
-        <Reactive.div className="modal_footer">
-          <Reactive.div className="total">
+        </div>
+        <div className="modal_footer">
+          <div className="total">
             {/* SubTotal () : <Memo>{() => totalPrize.get()} </Memo> */}
-            SubTotal () : {totalPrize.get()}
-          </Reactive.div>
-          <Reactive.div className="modal_footer_btns_container">
+            <p>
+              <Memo>{() => <span>SubTotal : {items.get().length}</span>}</Memo>
+              {/* <Memo>{() => <span> Total : $ {prize}</span>} </Memo> */}
+              <Memo>{() => <span> ${prize.get()}</span>}</Memo>
+              {/* <span>{prize.get()}</span> */}
+            </p>
+            {/* SubTotal ({selecteditemslength.get().length}) : {prize.get()} */}
+          </div>
+          <div className="modal_footer_btns_container">
             <SolidButton
               name={"Dismiss"}
               type={"slatewhite"}
               width="150px"
-              size="md"
+              size="sm"
               id={"dismiss"}
               key={"dismiss"}
               borderRadius={"2"}
               style={{ margin: "0px", padding: ".2vh 1vw" }}
             />
+            {/* {console.log(totalPrize.get(), "totalPrize.get()")} */}
             <SolidButton
-              disabled={totalPrize.get() === 0}
-              name={"Buy Now"}
+              disabled={isbtndisabled}
+              name={btnname}
               width="150px"
               style={{ margin: "0px", padding: ".2vh 1vw" }}
               borderRadius={"2"}
-              type={"solidblue"}
-              size="md"
+              type={btnType}
+              size="sm"
               id={"buy_now"}
               key={"buy_now"}
             />
-          </Reactive.div>
-        </Reactive.div>
-      </Reactive.div>
+          </div>
+        </div>
+      </div>
     </Reactive.div>
   );
 };
 
 export default App;
 
-const Card = ({ Data, totalPrize }) => {
+const Card = ({ Data, prize }) => {
   const renderCount = ++useRef(0).current;
 
+  const isSelected = useComputed(() => {
+    return Data?.isChecked?.get() ? "✅" : "⬜";
+  });
   // console.log(Data.get());
   // console.log(Data.name.get(), Data.isChecked.get(), "--------");
   return (
-    <Reactive.div
+    <div
       className="card_container"
       onClick={() => {
         Data.isChecked.set((prev) => !prev);
-        console.log(Data.name.get(), Data.isChecked.get(), ">>>>>>>>>>>>");
+        // console.log(Data.name.get(), Data.isChecked.get(), ">>>>>>>>>>>>");
 
         Data.isChecked.get()
-          ? totalPrize.set((prev) => prev + Data.price.get())
-          : totalPrize.set((prev) => prev - Data.price.get());
+          ? prize.set((prev) => prev + Data.price.get())
+          : prize.set((prev) => prev - Data.price.get());
       }}
     >
-      <Reactive.div className="left_side">
-        <Reactive.div className="render_count">{renderCount}</Reactive.div>
-        <Reactive.div className="device_name">{Data.name.get()}</Reactive.div>
-        <Reactive.div className="badges_contianer">
+      <div className="left_side">
+        <div className="render_count">{renderCount}</div>
+        <div className="device_name">{Data.name.get()}</div>
+        <div className="badges_contianer">
           <Button
             name={Data.location.get()}
             color={"#216E4E"}
@@ -180,6 +241,7 @@ const Card = ({ Data, totalPrize }) => {
             LeftIcon={LocationIcon}
             width="100px"
             style={{ margin: "0px" }}
+            readOnly
           />
           <Button
             name={"Camera : " + Data.camera_count.get()}
@@ -190,6 +252,7 @@ const Card = ({ Data, totalPrize }) => {
             LeftIcon={CameraIcon}
             width="100px"
             style={{ margin: "0px" }}
+            readOnly
           />
           <Button
             name={"No. of Licenses : " + Data.licenses.get()}
@@ -200,8 +263,9 @@ const Card = ({ Data, totalPrize }) => {
             LeftIcon={DocIcon}
             width="100px"
             style={{ margin: "0px" }}
+            readOnly
           />
-        </Reactive.div>
+        </div>
         <div className="card_footer">
           <div className="card_footer_title">License Details</div>
           <div className="card_footer_items">
@@ -241,8 +305,8 @@ const Card = ({ Data, totalPrize }) => {
             </For>
           </div>
         </div>
-      </Reactive.div>
-      <Reactive.div className="right_side">
+      </div>
+      <div className="right_side">
         {/* <Reactive.input
           $type="checkbox"
           $value={Data.isChecked}
@@ -252,9 +316,11 @@ const Card = ({ Data, totalPrize }) => {
             console.log(Data.isChecked.get(), ">>>>>>>>>>>>");
           }}
         /> */}
-        <Show if={Data?.isChecked} else={() => <div>⬜</div>}>
+        {/* <Show if={Data?.isChecked} else={() => <div>⬜</div>}>
           {() => <div>✅</div>}
-        </Show>
+        </Show> */}
+        <Memo>{() => isSelected.get()}</Memo>
+
         {/* <Memo>
           {() => (
             <Button
@@ -266,15 +332,78 @@ const Card = ({ Data, totalPrize }) => {
             />
           )}
         </Memo> */}
-      </Reactive.div>
-    </Reactive.div>
+      </div>
+    </div>
   );
 };
 
-const Button2 = ({ isBtnDisabled }) => {
+const Button2 = ({
+  name,
+  LeftIcon,
+  RightIcon,
+  extraClassName = "",
+  bgShade = false,
+  monoChrome,
+  color,
+  borderRadius = false,
+  border = false,
+  borderColor = false,
+  borderWeight = false,
+  disabled = false,
+  readOnly = false,
+  onClick,
+  width,
+  height,
+  size = "sm",
+  fontWeight,
+  style,
+  link,
+  id,
+  verticle,
+}) => {
   // const { classList } = useObservable({ classList: "button" });
   const renderCount = ++useRef(0).current;
-  console.log(isBtnDisabled.get(), "isBtnDisabled");
+
+  const styles = {
+    width: !width && "100px",
+    height,
+    cursor: disabled ? "not-allowed" : readOnly ? "auto" : null,
+    opacity: disabled && 0.8,
+    borderRadius: !borderRadius && "2px",
+    textDecoration: link && "underline",
+    color,
+    fontWeight,
+    backgroundColor:
+      color && bgShade && `color-mix(in oklab, ${color} 20%,  white)`,
+    ...style,
+  };
+  //   console.log(LeftIcon, "LeftIcon");
+  //   console.log(bgShade, color, `color.scale(${color},  $lightness: 90%)`);
+  if (border) {
+    styles["border"] =
+      borderWeight + " solid " + (borderColor ? borderColor : "transparent");
+  }
+  if (monoChrome) {
+    styles["backgroundColor"] = "white";
+    styles["color"] = "#20232D";
+  }
+  if (borderRadius) {
+    styles["borderRadius"] =
+      borderRadius == 1 ? "5px" : borderRadius == 2 && "99px";
+  }
+
+  if (size) {
+    styles["fontSize"] =
+      size === "sm" ? "12px" : size === "md" ? "18px" : "30px";
+
+    if (!width) {
+      styles["width"] =
+        size === "sm" ? "100px" : size === "md" ? "120px" : "150px";
+    }
+
+    styles["height"] = size === "sm" ? "25px" : size === "md" ? "45px" : "70px";
+  }
+  // console.log(isBtnDisabled.get(), "isBtnDisabled");
   // if (isBtnDisabled.get()) {
   //   // classList.set((p) => p + " disabled ");
   //   console.log("loggggggggggggggg");
@@ -284,20 +413,66 @@ const Button2 = ({ isBtnDisabled }) => {
   // useEffect(() => {
   //   console.log("XXXXXXXXXX");
   // }, [isBtnDisabled.get()]);
-  const isSelected = useComputed(() =>
-    isBtnDisabled.get() ? "button" : "button disabled"
-  );
+  // const isSelected = useComputed(() =>
+  //   isBtnDisabled.get() ? "button" : "button disabled"
+  // );
 
-  console.log(isSelected.get(), "isSelected");
+  const getClassNames = useComputed(() => {
+    const classString =
+      typeof extraClassName === "object"
+        ? extraClassName.get()
+        : extraClassName;
+
+    return classString;
+  });
+
+  const isDisabled = useComputed(() => {
+    let isDisabled;
+
+    if (typeof disabled === "object") {
+      isDisabled = disabled.get() ? true : false;
+    } else {
+      isDisabled = disabled ? true : false;
+    }
+
+    console.log(isDisabled ? "isDisabled" : "not isDisabled");
+
+    return isDisabled;
+  });
+
+  // console.log(extraClassName.get(), "className");
+
+  // useComputed(()=>{
+
+  // })
+
   return (
-    <Reactive.button
-      $className={() => isSelected.get()}
-      // $className={() => classList.get()}
-      // $className={() =>
-      //   !isBtnDisabled.get() ? "button " : " button disabled "
-      // }
-    >
-      Anand{renderCount}
-    </Reactive.button>
+    <Computed>
+      {() => (
+        <Reactive.button
+          $disabled={isDisabled.get()}
+          $className={"button " + getClassNames.get()}
+          // $className={() => classList.get()}
+          // $className={() =>
+          //   !isBtnDisabled.get() ? "button " : " button disabled "
+          // }
+        >
+          {name.get()}
+          {/* <Memo>{() => btnName.get()}</Memo> */}
+          {renderCount}
+        </Reactive.button>
+      )}
+    </Computed>
   );
 };
+const X = (props) => (
+  <svg
+    width={props?.width ?? 16}
+    height={props?.height ?? 16}
+    viewBox="0 0 38.4 38.4"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path d="m15.946 19.718-9.051 9.051 3.771 3.771 9.051-9.051 9.051 9.051 3.771-3.771-9.051-9.051 9.051-9.051-3.771-3.771-9.05 9.05-9.051-9.051-3.772 3.772z" />
+  </svg>
+);

@@ -1,6 +1,14 @@
-import { observer, Reactive } from "@legendapp/state/react";
+import {
+  Computed,
+  Memo,
+  observer,
+  Reactive,
+  useComputed,
+  useObserveEffect,
+} from "@legendapp/state/react";
 import "./Button.scss";
 import { useRef } from "react";
+import { observe } from "@legendapp/state";
 // import { DocIcon, InfoIcon } from "./App3";
 const ButtonsContainer = () => {
   return (
@@ -147,140 +155,196 @@ const ButtonsContainer = () => {
   );
 };
 
-export const SolidButton = observer(
-  ({
-    name,
-    LeftIcon,
-    RightIcon,
-    size,
-    extraClassName,
-    type = "solidblue",
-    borderRadius,
-    disabled,
-    id,
-    style,
-    width,
-  }) => {
-    // console.log(props, "props");
-    let type2 =
-      "solidblue" | "slatewhite" | "warningred" | "solidgreen" | "solidblack";
-    // let props = { name, LeftIcon, RightIcon, extraClassName, type, disabled };
+export const SolidButton = ({
+  name,
+  LeftIcon,
+  RightIcon,
+  size,
+  extraClassName,
+  type = "solidblue",
+  borderRadius,
+  disabled,
+  id,
+  style,
+  width,
+}) => {
+  // console.log(props, "props");
+  // let type2 =
+  //   "solidblue" | "slatewhite" | "warningred" | "solidgreen" | "solidblack";
+  // let props = { name, LeftIcon, RightIcon, extraClassName, type, disabled };
 
-    return (
-      <Button
-        extraClassName={[type, extraClassName]}
-        {...{
-          name,
-          LeftIcon,
-          RightIcon,
-          disabled,
-          borderRadius,
-          size,
-          id,
-          style,
-          width,
-        }}
-      />
-    );
-  }
-);
+  const type2 = useComputed(() => {
+    let typeofbtn = typeof type !== "object" ? type : type.get();
 
-export const Button = observer(
-  ({
-    name,
-    LeftIcon,
-    RightIcon,
-    extraClassName = "",
-    bgShade = false,
-    monoChrome,
-    color,
-    borderRadius = false,
-    border = false,
-    borderColor = false,
-    borderWeight = false,
-    disabled = false,
-    readOnly = false,
-    onClick,
-    width,
+    let retuningClases = typeofbtn;
+    if (extraClassName) {
+      let extraClassNameString =
+        typeof extraClassName !== "object"
+          ? extraClassName
+          : extraClassName.get();
+
+      retuningClases += " " + extraClassNameString;
+    }
+    // console.log(retuningClases);
+    return retuningClases;
+  });
+
+  // useObserveEffect(() => {
+  //   console.log(type2.get(), "type2 computed>>>>>>>>>>>>");
+  // });
+
+  return (
+    <Button
+      extraClassName={type2}
+      {...{
+        name,
+        LeftIcon,
+        RightIcon,
+        disabled,
+        borderRadius,
+        size,
+        id,
+        style,
+        width,
+      }}
+    />
+  );
+};
+
+export const Button = ({
+  name,
+  LeftIcon,
+  RightIcon,
+  extraClassName = "",
+  bgShade = false,
+  monoChrome,
+  color,
+  borderRadius = false,
+  border = false,
+  borderColor = false,
+  borderWeight = false,
+  disabled,
+  readOnly = false,
+  onClick,
+  width,
+  height,
+  size = "sm",
+  fontWeight,
+  style,
+  link,
+  id,
+  verticle,
+}) => {
+  //   size = "sm" | "md" | "lg";
+
+  const renderCount = ++useRef(0).current;
+
+  const styles = {
+    width: !width && "100px",
     height,
-    size = "sm",
+    cursor: disabled ? "not-allowed" : readOnly ? "auto" : null,
+    opacity: disabled && 0.8,
+    borderRadius: !borderRadius && "2px",
+    textDecoration: link && "underline",
+    color,
     fontWeight,
-    style,
-    link,
-    id,
-    verticle,
-  }) => {
-    //   size = "sm" | "md" | "lg";
-
-    const renderCount = ++useRef(0).current;
-
-    const styles = {
-      width: !width && "100px",
-      height,
-      cursor: disabled && "not-allowed",
-      opacity: disabled && 0.8,
-      borderRadius: !borderRadius && "2px",
-      textDecoration: link && "underline",
-      color,
-      fontWeight,
-      backgroundColor:
-        color && bgShade && `color-mix(in oklab, ${color} 20%,  white)`,
-      ...style,
-    };
-    //   console.log(LeftIcon, "LeftIcon");
-    //   console.log(bgShade, color, `color.scale(${color},  $lightness: 90%)`);
-    if (border) {
-      styles["border"] =
-        borderWeight + " solid " + (borderColor ? borderColor : "transparent");
-    }
-    if (monoChrome) {
-      styles["backgroundColor"] = "white";
-      styles["color"] = "#20232D";
-    }
-    if (borderRadius) {
-      styles["borderRadius"] =
-        borderRadius == 1 ? "5px" : borderRadius == 2 && "99px";
-    }
-
-    if (size) {
-      styles["fontSize"] =
-        size === "sm" ? "12px" : size === "md" ? "18px" : "30px";
-
-      if (!width) {
-        styles["width"] =
-          size === "sm" ? "100px" : size === "md" ? "120px" : "150px";
-      }
-
-      styles["height"] =
-        size === "sm" ? "25px" : size === "md" ? "45px" : "70px";
-    }
-
-    let extraClassNameString =
-      extraClassName && Array.isArray(extraClassName)
-        ? extraClassName.join(" ")
-        : extraClassName;
-
-    return (
-      <Reactive.button
-        className={"button " + extraClassNameString}
-        onClick={!readOnly ? onClick : null}
-        disabled={disabled}
-        style={{ ...styles }}
-        id={id}
-      >
-        {renderCount}
-
-        {LeftIcon && (
-          <LeftIcon fill={color} width={styles["fontSize"]} height={"100%"} />
-        )}
-        {name}
-        {RightIcon && (
-          <RightIcon fill={color} width={styles["fontSize"]} height={"100%"} />
-        )}
-      </Reactive.button>
-    );
+    backgroundColor:
+      color && bgShade && `color-mix(in oklab, ${color} 20%,  white)`,
+    ...style,
+  };
+  //   console.log(LeftIcon, "LeftIcon");
+  //   console.log(bgShade, color, `color.scale(${color},  $lightness: 90%)`);
+  if (border) {
+    styles["border"] =
+      borderWeight + " solid " + (borderColor ? borderColor : "transparent");
   }
-);
+  if (monoChrome) {
+    styles["backgroundColor"] = "white";
+    styles["color"] = "#20232D";
+  }
+  if (borderRadius) {
+    styles["borderRadius"] =
+      borderRadius == 1 ? "5px" : borderRadius == 2 && "99px";
+  }
+
+  if (size) {
+    styles["fontSize"] =
+      size === "sm" ? "12px" : size === "md" ? "18px" : "30px";
+
+    if (!width) {
+      styles["width"] =
+        size === "sm" ? "100px" : size === "md" ? "120px" : "150px";
+    }
+
+    styles["height"] = size === "sm" ? "25px" : size === "md" ? "45px" : "70px";
+  }
+
+  const getName = useComputed(() => {
+    let name2 = typeof name === "object" ? name.get() : name;
+    return name2;
+  });
+
+  const extraClassNameString = useComputed(() => {
+    const classString =
+      typeof extraClassName === "object"
+        ? extraClassName.get()
+        : extraClassName;
+    return "button " + classString;
+  });
+
+  const isDisabled = useComputed(() => {
+    let isDisabled;
+
+    if (typeof disabled === "object") {
+      isDisabled = disabled.get() ? true : false;
+    } else {
+      isDisabled = disabled ? true : false;
+    }
+
+    console.log(isDisabled ? "isDisabled" : "not isDisabled");
+
+    return isDisabled;
+  });
+
+  // useObserveEffect(() => {
+  //   console.log(
+  //     getName.get(),
+  //     extraClassNameString.get(),
+  //     " useObserveEffect Class "
+  //   );
+  // });
+
+  return (
+    <Computed>
+      {() => (
+        <Reactive.button
+          $className={extraClassNameString.get()}
+          $onClick={!readOnly ? onClick : null}
+          $disabled={isDisabled.get()}
+          $style={{ ...styles }}
+          $id={id}
+        >
+          {renderCount}
+
+          {LeftIcon && (
+            <LeftIcon fill={color} width={styles["fontSize"]} height={"100%"} />
+          )}
+          {getName.get()}
+
+          {/* <Memo>{() => getName.get()}</Memo> */}
+          {/* <Memo>{() => name.get()}</Memo> */}
+          {RightIcon && (
+            <RightIcon
+              fill={color}
+              width={styles["fontSize"]}
+              height={"100%"}
+            />
+          )}
+        </Reactive.button>
+      )}
+    </Computed>
+  );
+};
 
 export const InfoIcon = (props) => (
   <svg
